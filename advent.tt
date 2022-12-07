@@ -2,7 +2,7 @@
 <#@ import namespace="System.IO" #>
 <#@ output extenssion=".cs" #>
 <#
-var day = 7;
+var day = 8;
 #>
 internal class Advent<#= day #>
 {
@@ -20,15 +20,19 @@ internal class Advent<#= day #>
     }
 }
 <#
-    SaveOutput("Advent" + day + ".cs");
+    SaveOutput("Advent" + day + ".cs", day);
 #>
 <#+
-private void SaveOutput(string filename) {
+private void SaveOutput(string filename, int day) {
     string templateDirectory = Path.GetDirectoryName(Host.TemplateFile);
     string outputFilePath = Path.Combine(templateDirectory, filename);
     if (!File.Exists(outputFilePath)) {
         File.WriteAllText(outputFilePath, this.GenerationEnvironment.ToString()); 
         this.GenerationEnvironment.Remove(0, this.GenerationEnvironment.Length);
+    }
+    string outputFilePath2 = Path.Combine(templateDirectory, $"input{day}.txt");
+    if (!File.Exists(outputFilePath2)) {
+        File.WriteAllText(outputFilePath2, "");
     }
 }
 #>
