@@ -26,7 +26,9 @@ internal class Advent<#= day #>
 private void SaveOutput(string filename) {
     string templateDirectory = Path.GetDirectoryName(Host.TemplateFile);
     string outputFilePath = Path.Combine(templateDirectory, filename);
-    File.WriteAllText(outputFilePath, this.GenerationEnvironment.ToString()); 
-    this.GenerationEnvironment.Remove(0, this.GenerationEnvironment.Length);
+    if (!File.Exists(outputFilePath)) {
+        File.WriteAllText(outputFilePath, this.GenerationEnvironment.ToString()); 
+        this.GenerationEnvironment.Remove(0, this.GenerationEnvironment.Length);
+    }
 }
 #>
