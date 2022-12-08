@@ -2,7 +2,6 @@ internal class Advent8
 {
     private static readonly Dictionary<int, Dictionary<int, int>> treeGrid = new();
 
-
     internal async static Task Run()
     {
         var fileContent = await File.ReadAllLinesAsync("input8.txt");
@@ -32,6 +31,16 @@ internal class Advent8
                 if (visTop || visRight || visBottom || visLeft)
                 {
                     score1++;
+                }
+
+                var viewTop = GetTopView(cell, i - 1, j);
+                var viewRight = GetRightView(cell, i, j + 1);
+                var viewBottom = GetBottomView(cell, i + 1, j);
+                var viewLeft = GetLeftView(cell, i, j - 1);
+
+                if (viewTop * viewRight * viewBottom * viewLeft > score2)
+                {
+                    score2 = viewTop * viewRight * viewBottom * viewLeft;
                 }
             }
         }
@@ -82,5 +91,49 @@ internal class Advent8
             if (treeGrid[i][left] < height) { visible = true; }
         }
         return visible;
+    }
+
+    private static int GetLeftView(int height, int top, int left)
+    {
+        var viewCount = 0;
+        for (int i = left; i >= 0; i--)
+        {
+            if (treeGrid[top][i] >= height) { viewCount++; break; }
+            if (treeGrid[top][i] < height) { viewCount++; }
+        }
+        return viewCount;
+    }
+
+    private static int GetBottomView(int height, int top, int left)
+    {
+        var viewCount = 0;
+        for (int i = top; i < treeGrid.Count; i++)
+        {
+            if (treeGrid[i][left] >= height) { viewCount++; break; }
+            if (treeGrid[i][left] < height) { viewCount++; }
+        }
+        return viewCount;
+    }
+
+    private static int GetRightView(int height, int top, int left)
+    {
+        var viewCount = 0;
+        for (int i = left; i < treeGrid[top].Count; i++)
+        {
+            if (treeGrid[top][i] >= height) { viewCount++; break; }
+            if (treeGrid[top][i] < height) { viewCount++; }
+        }
+        return viewCount;
+    }
+
+    private static int GetTopView(int height, int top, int left)
+    {
+        var viewCount = 0;
+        for (int i = top; i >= 0; i--)
+        {
+            if (treeGrid[i][left] >= height) { viewCount++; break; }
+            if (treeGrid[i][left] < height) { viewCount++; }
+        }
+        return viewCount;
     }
 }
