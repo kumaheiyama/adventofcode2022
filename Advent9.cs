@@ -2,6 +2,8 @@ using System.Text.RegularExpressions;
 
 internal partial class Advent9
 {
+    //Inspiration https://www.reddit.com/r/adventofcode/comments/zgnice/comment/izluseh/?utm_source=share&utm_medium=web2x&context=3
+
     internal async static Task Run()
     {
         var fileContent = await File.ReadAllLinesAsync("input9.txt");
