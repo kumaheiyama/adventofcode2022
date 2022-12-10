@@ -28,6 +28,7 @@ internal class Advent10
         }
 
         cycleTime = 1;
+        var crtTime = 0;
         do
         {
             if (ops.TryGetValue(cycleTime, out int pl))
@@ -39,9 +40,25 @@ internal class Advent10
                 var signalStrength = x * cycleTime;
                 score1 += signalStrength;
             }
-            cycleTime++;
-        } while (cycleTime < 222);
 
+            if (crtTime >= x - 1 && crtTime <= x + 1)
+            {
+                Console.Write("#");
+            }
+            else
+            {
+                Console.Write(".");
+            }
+            if (crtTime == 39)
+            {
+                Console.WriteLine();
+            }
+
+            cycleTime++;
+            crtTime++;
+            if (crtTime == 40) { crtTime = 0; }
+        } while (cycleTime < 300);
+        Console.WriteLine();
 
         Console.WriteLine($"Advent10: 1 ({score1}), 2 ({score2})");
     }
